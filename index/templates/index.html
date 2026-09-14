@@ -4,12 +4,15 @@
 <html lang="pt-BR">
 
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>???</title>
 
     <style>
+
         * {
             box-sizing: border-box;
         }
@@ -22,96 +25,150 @@
         }
 
         body {
+
             min-height: 100vh;
 
             background:
-                radial-gradient(circle at center, #121212 0%, #060606 48%, #000 100%);
+                radial-gradient(
+                    circle at center,
+                    #111 0%,
+                    #050505 50%,
+                    #000 100%
+                );
 
-            color: #c8c8c8;
+            color: #aaa;
 
             font-family: "Courier New", monospace;
 
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
 
             overflow: hidden;
+
+            transition:
+                background 1s ease;
         }
 
+
         /* =====================================================
-           CAMADAS
+           ATMOSFERA
         ===================================================== */
 
         body::before {
+
             content: "";
 
             position: fixed;
+
             inset: 0;
 
             pointer-events: none;
+
+            z-index: 90;
 
             background:
                 repeating-linear-gradient(
                     to bottom,
-                    rgba(255,255,255,0.025) 0px,
-                    rgba(255,255,255,0.025) 1px,
+                    rgba(255,255,255,.018) 0px,
+                    rgba(255,255,255,.018) 1px,
                     transparent 2px,
-                    transparent 4px
+                    transparent 5px
                 );
-
-            z-index: 20;
         }
 
-        .noise {
+
+        body::after {
+
+            content: "";
+
             position: fixed;
+
             inset: 0;
 
             pointer-events: none;
 
-            opacity: .04;
+            z-index: 89;
+
+            opacity: .035;
 
             background-image:
-                url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E");
-
-            z-index: 19;
+                url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
         }
 
+
         /* =====================================================
-           INTERFACE
+           HUD
+        ===================================================== */
+
+        .hud {
+
+            position: fixed;
+
+            top: 22px;
+            left: 25px;
+            right: 25px;
+
+            display: flex;
+            justify-content: space-between;
+
+            color: #292929;
+
+            font-size: 9px;
+
+            letter-spacing: 2px;
+
+            z-index: 10;
+        }
+
+        .hud .danger {
+            color: #4b1010;
+        }
+
+
+        /* =====================================================
+           CONTAINER
         ===================================================== */
 
         .container {
-            width: min(900px, 92%);
 
-            padding: clamp(28px, 5vw, 55px);
+            width: min(780px, 90%);
 
-            border: 1px solid #292929;
+            padding:
+                clamp(35px, 6vw, 65px)
+                clamp(28px, 6vw, 65px);
 
-            background: rgba(5,5,5,.95);
+            border: 1px solid #242424;
+
+            background:
+                rgba(3,3,3,.94);
 
             position: relative;
 
             box-shadow:
-                0 0 60px rgba(255,255,255,.025),
-                inset 0 0 45px rgba(255,255,255,.018);
+                0 0 80px rgba(255,255,255,.018),
+                inset 0 0 50px rgba(255,255,255,.012);
 
             transition:
-                transform .12s,
-                filter .12s,
-                opacity .15s;
+                transform .1s,
+                filter .1s,
+                opacity .2s;
         }
+
 
         .container::before,
         .container::after {
+
             content: "";
 
             position: absolute;
 
-            width: 25px;
-            height: 25px;
+            width: 26px;
+            height: 26px;
         }
 
         .container::before {
+
             top: -1px;
             left: -1px;
 
@@ -120,6 +177,7 @@
         }
 
         .container::after {
+
             right: -1px;
             bottom: -1px;
 
@@ -127,14 +185,18 @@
             border-bottom: 2px solid #666;
         }
 
+
         /* =====================================================
-           TOPO
+           CABEÇALHO
         ===================================================== */
 
-        .warning {
-            color: #666;
+        .system {
 
-            font-size: 11px;
+            text-align: center;
+
+            color: #ffffff;
+
+            font-size: 10px;
 
             letter-spacing: 4px;
 
@@ -143,20 +205,32 @@
             transition: .15s;
         }
 
+
+        .system span {
+
+            color: #6a1515;
+        }
+
+
         h1 {
+
             margin: 0;
 
             text-align: center;
 
-            color: #eee;
+            color: #ededed;
 
-            font-size: clamp(42px, 9vw, 78px);
+            font-size: clamp(48px, 10vw, 86px);
 
-            letter-spacing: 15px;
+            font-weight: normal;
+
+            letter-spacing: 17px;
+
+            text-indent: 17px;
 
             text-shadow:
-                0 0 5px #eee,
-                0 0 18px rgba(255,255,255,.18);
+                0 0 5px rgba(255,255,255,.8),
+                0 0 20px rgba(255,255,255,.12);
 
             position: relative;
 
@@ -167,43 +241,51 @@
                 filter .1s;
         }
 
-        /* cópias falsas do título */
 
         h1::before,
         h1::after {
+
             content: "???";
 
             position: absolute;
 
             inset: 0;
 
-            opacity: 0;
-
             pointer-events: none;
+
+            opacity: 0;
         }
 
+
         h1::before {
-            color: #741414;
+
+            color: #711515;
 
             transform: translateX(-4px);
 
-            clip-path: inset(20% 0 55% 0);
+            clip-path:
+                inset(15% 0 62% 0);
         }
+
 
         h1::after {
+
             color: #555;
 
-            transform: translateX(4px);
+            transform: translateX(5px);
 
-            clip-path: inset(60% 0 15% 0);
+            clip-path:
+                inset(65% 0 12% 0);
         }
 
+
         .subtitle {
-            margin: 20px 0 45px;
+
+            margin-top: 18px;
 
             text-align: center;
 
-            color: #444;
+            color: #b8b5b5;
 
             font-size: 12px;
 
@@ -212,20 +294,32 @@
             transition: .15s;
         }
 
+
         /* =====================================================
            TERMINAL
         ===================================================== */
 
         .terminal {
-            min-height: 190px;
 
-            padding-left: 20px;
+            margin-top: 45px;
 
-            border-left: 2px solid #333;
+            min-height: 185px;
 
-            color: #999;
+            padding:
+                18px 20px;
 
-            font-size: 14px;
+            border-left: 1px solid #333;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(255,255,255,.012),
+                    transparent
+                );
+
+            color: #a3a3a3;
+
+            font-size: 13px;
 
             line-height: 1.9;
 
@@ -233,40 +327,229 @@
 
             transition:
                 transform .1s,
-                filter .1s,
-                opacity .1s;
+                opacity .1s,
+                filter .1s;
         }
+
+
+        .terminal::before {
+
+            content: ">";
+
+            position: absolute;
+
+            left: 6px;
+            top: 18px;
+
+            color: #651414;
+        }
+
 
         #text {
-            white-space: normal;
+
+            padding-left: 12px;
+
+            min-height: 150px;
         }
 
+
         .cursor {
+
             display: inline-block;
 
-            width: 8px;
-            height: 16px;
+            width: 7px;
+            height: 14px;
 
             margin-left: 3px;
 
-            vertical-align: middle;
+            background: #888;
 
-            background: #aaa;
+            vertical-align: middle;
 
             animation: blink .8s infinite;
         }
 
+
         /* =====================================================
-           CORRUPÇÃO VISUAL
+           FORM
         ===================================================== */
 
-        .corruption-overlay {
+        .question {
+
+            margin-top: 35px;
+            margin-bottom: 12px;
+
+            color: #a3a3a3;
+
+            font-size: 13px;
+
+            letter-spacing: 3px;
+
+            transition: .15s;
+        }
+
+
+        .input-area {
+
+            display: flex;
+
+            gap: 9px;
+        }
+
+
+        .input-area input {
+
+            flex: 1;
+
+            height: 52px;
+
+            padding: 0 17px;
+
+            background: #030303;
+
+            border: 1px solid #303030;
+
+            color: #ddd;
+
+            outline: none;
+
+            font-family: inherit;
+
+            font-size: 14px;
+
+            letter-spacing: 2px;
+
+            transition:
+                border .2s,
+                box-shadow .2s;
+        }
+
+
+        .input-area input::placeholder {
+
+            color: #2d2d2d;
+        }
+
+
+        .input-area input:focus {
+
+            border-color: #666;
+
+            box-shadow:
+                0 0 18px rgba(255,255,255,.035);
+        }
+
+
+        button {
+
+            height: 52px;
+
+            padding: 0 25px;
+
+            background: #080808;
+
+            border: 1px solid #3a3a3a;
+
+            color: #777;
+
+            font-family: inherit;
+
+            letter-spacing: 1px;
+
+            cursor: pointer;
+
+            transition: .2s;
+        }
+
+
+        button:hover {
+
+            color: #eee;
+
+            border-color: #666;
+
+            background: #111;
+        }
+
+
+        button:disabled {
+
+            cursor: default;
+
+            color: #444;
+        }
+
+
+        .result {
+
+            margin-top: 13px;
+
+            min-height: 16px;
+
+            font-size: 13px;
+
+            letter-spacing: 2px;
+        }
+
+
+        .result.error {
+
+            color: #691515;
+
+            animation: flicker .8s infinite;;
+
+        }
+
+
+        /* =====================================================
+           RECOVERY
+        ===================================================== */
+
+        .recovery {
+
             position: fixed;
+
+            left: 50%;
+            bottom: 40px;
+
+            transform: translateX(-50%);
+
+            color: #700707;
+
+            font-size: 13px;
+
+            letter-spacing: 3px;
+
+            opacity: 0;
+
+            z-index: 120;
+
+            white-space: nowrap;
+        }
+
+
+        .recovery.active {
+
+            opacity: 1;
+
+            animation:
+                recoveryGlitch .13s steps(2) infinite;
+        }
+
+
+        /* =====================================================
+           OVERLAY
+        ===================================================== */
+
+        .corruption {
+
+            position: fixed;
+
             inset: 0;
 
-            pointer-events: none;
+            z-index: 110;
 
-            z-index: 50;
+            pointer-events: none;
 
             opacity: 0;
 
@@ -274,212 +557,138 @@
                 linear-gradient(
                     to bottom,
                     transparent 0%,
-                    transparent 46%,
-                    rgba(120,0,0,.18) 47%,
-                    transparent 48%,
-                    transparent 100%
+                    transparent 43%,
+                    rgba(100,0,0,.20) 44%,
+                    transparent 45%,
+                    transparent 70%,
+                    rgba(255,255,255,.04) 71%,
+                    transparent 72%
                 );
         }
 
-        .corruption-overlay.active {
-            animation: screenCorrupt .18s steps(2) infinite;
+
+        .corruption.active {
+
+            animation:
+                corruption .13s steps(2) infinite;
         }
 
+
         .scan {
+
             position: fixed;
 
             left: -10%;
 
+            top: -5%;
+
             width: 120%;
             height: 2px;
 
-            background: rgba(255,255,255,.08);
+            background:
+                rgba(255,255,255,.08);
 
             pointer-events: none;
 
-            z-index: 40;
+            z-index: 115;
 
             opacity: 0;
         }
+
 
         .scan.active {
-            animation: scanMove .5s linear;
+
+            animation:
+                scanMove .45s linear;
         }
+
 
         /* =====================================================
-           QUESTION
+           FINAL
         ===================================================== */
 
-        .question {
-            margin-top: 35px;
-            margin-bottom: 12px;
+        body.dying .container {
 
-            color: #666;
-
-            font-size: 11px;
-
-            letter-spacing: 3px;
-
-            transition: .15s;
+            animation:
+                containerDeath .12s steps(2) infinite;
         }
 
-        .input-area {
-            display: flex;
 
-            gap: 10px;
+        body.dying h1 {
 
-            margin-top: 15px;
+            animation:
+                titleDeath .11s steps(2) infinite;
         }
 
-        .campo-enigma {
-            flex: 1;
 
-            width: 100%;
-            height: 50px;
+        body.dying h1::before {
 
-            padding: 0 18px;
+            opacity: .7;
 
-            background: #050505;
-
-            color: #ddd;
-
-            border: 1px solid #333;
-
-            outline: none;
-
-            font-family: inherit;
-
-            font-size: 15px;
-
-            letter-spacing: 1px;
-
-            transition: .25s;
+            animation:
+                ghostRed .08s infinite;
         }
 
-        .campo-enigma::placeholder {
-            color: #333;
+
+        body.dying h1::after {
+
+            opacity: .5;
+
+            animation:
+                ghostGray .07s infinite;
         }
 
-        .campo-enigma:focus {
-            border-color: #777;
 
-            box-shadow:
-                0 0 12px rgba(255,255,255,.05),
-                inset 0 0 12px rgba(255,255,255,.02);
+        body.dying .terminal,
+        body.dying .subtitle,
+        body.dying .system,
+        body.dying .question {
+
+            animation:
+                textDeath .12s steps(2) infinite;
         }
 
-        button {
-            height: 50px;
 
-            padding: 0 27px;
+        body.dying .input-area {
 
-            background: #0a0a0a;
-
-            color: #888;
-
-            border: 1px solid #444;
-
-            font-family: inherit;
-
-            cursor: pointer;
-
-            transition: .2s;
+            animation:
+                inputDeath .09s steps(2) infinite;
         }
 
-        button:hover {
-            color: #fff;
 
-            border-color: #777;
-
-            background: #151515;
-        }
-
-        .result {
-            height: 20px;
-
-            margin-top: 15px;
-
-            font-size: 12px;
-        }
-
-        .success {
-            color: #aaa;
-        }
-
-        .error {
-            color: #6b1818;
-
-            animation: errorFlicker 1s infinite;
-        }
-
-        /* =====================================================
-           CANTOS / HUD
-        ===================================================== */
-
-        .coordinates {
-            position: fixed;
-
-            left: 25px;
-            bottom: 20px;
-
-            color: #292929;
-
-            font-size: 9px;
-
-            letter-spacing: 2px;
-        }
-
-        .number {
-            position: fixed;
-
-            right: 25px;
-            top: 20px;
-
-            color: #222;
-
-            font-size: 10px;
-
-            letter-spacing: 1px;
-        }
-
-        .recovery {
-            position: fixed;
-
-            left: 50%;
-            bottom: 45px;
-
-            transform: translateX(-50%);
-
-            color: #651313;
-
-            font-size: 10px;
-
-            letter-spacing: 3px;
+        body.fadeout .container {
 
             opacity: 0;
 
-            pointer-events: none;
+            transform:
+                scale(.92)
+                translateY(-10px);
 
-            z-index: 60;
+            filter:
+                blur(12px);
         }
 
-        .recovery.show {
-            opacity: 1;
 
-            animation: recoveryGlitch .15s infinite;
+        body.blackout {
+
+            background: #000;
         }
+
 
         /* =====================================================
            ANIMAÇÕES
         ===================================================== */
 
         @keyframes blink {
+
             50% {
                 opacity: 0;
             }
         }
 
-        @keyframes errorFlicker {
+
+        @keyframes flicker {
+
             0%, 100% {
                 opacity: 1;
             }
@@ -489,34 +698,38 @@
             }
         }
 
-        @keyframes screenCorrupt {
+
+        @keyframes corruption {
+
             0% {
                 opacity: 0;
-                transform: translate(0);
+                transform: translateX(0);
             }
 
-            20% {
-                opacity: .8;
-                transform: translate(-8px);
-            }
-
-            40% {
-                opacity: .2;
-                transform: translate(7px);
-            }
-
-            60% {
+            25% {
                 opacity: .9;
-                transform: translate(-3px);
+                transform: translateX(-8px);
+            }
+
+            50% {
+                opacity: .25;
+                transform: translateX(7px);
+            }
+
+            75% {
+                opacity: .8;
+                transform: translateX(-3px);
             }
 
             100% {
                 opacity: 0;
-                transform: translate(0);
+                transform: translateX(0);
             }
         }
 
+
         @keyframes scanMove {
+
             0% {
                 top: -5%;
                 opacity: 0;
@@ -532,7 +745,125 @@
             }
         }
 
+
+        @keyframes containerDeath {
+
+            0% {
+                transform: translate(0);
+                filter: none;
+            }
+
+            30% {
+                transform: translate(-8px, 2px);
+                filter: contrast(1.7);
+            }
+
+            60% {
+                transform: translate(7px, -3px);
+                filter: brightness(1.4);
+            }
+
+            100% {
+                transform: translate(-2px, 1px);
+            }
+        }
+
+
+        @keyframes titleDeath {
+
+            0% {
+                transform: translate(0);
+                letter-spacing: 17px;
+            }
+
+            40% {
+                transform: translate(-7px);
+                letter-spacing: 24px;
+                opacity: .35;
+            }
+
+            70% {
+                transform: translate(8px);
+                letter-spacing: 7px;
+                opacity: .8;
+            }
+
+            100% {
+                transform: translate(0);
+                letter-spacing: 17px;
+            }
+        }
+
+
+        @keyframes ghostRed {
+
+            0% {
+                transform: translateX(-4px);
+            }
+
+            50% {
+                transform: translateX(10px);
+            }
+
+            100% {
+                transform: translateX(-7px);
+            }
+        }
+
+
+        @keyframes ghostGray {
+
+            0% {
+                transform: translateX(5px);
+            }
+
+            50% {
+                transform: translateX(-9px);
+            }
+
+            100% {
+                transform: translateX(6px);
+            }
+        }
+
+
+        @keyframes textDeath {
+
+            0% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+
+            50% {
+                transform: translateX(-5px);
+                opacity: .25;
+            }
+
+            100% {
+                transform: translateX(6px);
+                opacity: .7;
+            }
+        }
+
+
+        @keyframes inputDeath {
+
+            0% {
+                transform: translateX(0);
+            }
+
+            50% {
+                transform: translateX(5px);
+            }
+
+            100% {
+                transform: translateX(-6px);
+            }
+        }
+
+
         @keyframes recoveryGlitch {
+
             0% {
                 transform: translateX(-50%);
             }
@@ -542,147 +873,90 @@
             }
 
             100% {
-                transform: translateX(calc(-50% + 3px));
+                transform: translateX(calc(-50% + 4px));
             }
         }
+/* =====================================================
+   ACCESS DENIED
+===================================================== */
 
-        /* =====================================================
-           ESTADO FINAL
-        ===================================================== */
+body.access-denied .container {
+    border-color: #444;
+    box-shadow:
+        0 0 100px rgba(255,255,255,.045),
+        inset 0 0 60px rgba(255,255,255,.025);
+}
 
-        body.corrupting .container {
-            animation: containerDeath .18s steps(2) infinite;
-        }
+body.access-denied .hud {
+    color: #555;
+}
 
-        body.corrupting h1::before {
-            opacity: .7;
+body.access-denied .hud .danger {
+    color: #8b2020;
+}
 
-            animation: ghostA .12s infinite;
-        }
+body.access-denied .system {
+    color: #ddd;
+}
 
-        body.corrupting h1::after {
-            opacity: .5;
+body.access-denied .system span {
+    color: #a02020;
+}
 
-            animation: ghostB .09s infinite;
-        }
+body.access-denied h1 {
+    color: #fff;
+    text-shadow:
+        0 0 6px rgba(255,255,255,.9),
+        0 0 25px rgba(255,255,255,.18);
+}
 
-        body.corrupting h1 {
-            animation: titleDeath .13s steps(2) infinite;
-        }
+body.access-denied .subtitle {
+    color: #d0d0d0;
+}
 
-        body.corrupting .terminal,
-        body.corrupting .subtitle,
-        body.corrupting .warning,
-        body.corrupting .question {
-            animation: textDeath .16s steps(2) infinite;
-        }
+body.access-denied .terminal {
+    color: #c5c5c5;
+}
 
-        body.corrupting .campo-enigma,
-        body.corrupting button {
-            animation: inputDeath .15s steps(2) infinite;
-        }
+body.access-denied .question {
+    color: #ccc;
+}
 
-        @keyframes containerDeath {
-            0% {
-                transform: translate(0);
-                filter: none;
-            }
+body.access-denied .input-area input {
+    border-color: #555;
+    color: #fff;
+}
 
-            25% {
-                transform: translate(-8px, 2px);
-                filter: contrast(1.4);
-            }
+body.access-denied button {
+    border-color: #666;
+    color: #aaa;
+}
 
-            50% {
-                transform: translate(6px, -3px);
-                filter: contrast(.7);
-            }
+body.access-denied .result.error {
+    color: #a52222;
+    opacity: 1;
+    animation: deniedFlicker 1.2s infinite;
+}
 
-            75% {
-                transform: translate(-3px, 1px);
-                filter: brightness(1.5);
-            }
+@keyframes deniedFlicker {
 
-            100% {
-                transform: translate(0);
-            }
-        }
+    0%, 100% {
+        opacity: 1;
+    }
 
-        @keyframes titleDeath {
-            0% {
-                transform: translate(0);
-                letter-spacing: 15px;
-            }
+    48% {
+        opacity: .8;
+    }
 
-            50% {
-                transform: translate(-5px);
-                letter-spacing: 20px;
-                opacity: .5;
-            }
+    50% {
+        opacity: .45;
+    }
 
-            100% {
-                transform: translate(5px);
-                letter-spacing: 9px;
-            }
-        }
+    52% {
+        opacity: 1;
+    }
 
-        @keyframes ghostA {
-            0% {
-                transform: translateX(-3px);
-            }
-
-            50% {
-                transform: translateX(8px);
-            }
-
-            100% {
-                transform: translateX(-6px);
-            }
-        }
-
-        @keyframes ghostB {
-            0% {
-                transform: translateX(4px);
-            }
-
-            50% {
-                transform: translateX(-7px);
-            }
-
-            100% {
-                transform: translateX(5px);
-            }
-        }
-
-        @keyframes textDeath {
-            0% {
-                transform: translateX(0);
-            }
-
-            50% {
-                transform: translateX(-4px);
-                opacity: .35;
-            }
-
-            100% {
-                transform: translateX(5px);
-                opacity: .8;
-            }
-        }
-
-        @keyframes inputDeath {
-            0% {
-                transform: translateX(0);
-            }
-
-            50% {
-                transform: translateX(4px);
-            }
-
-            100% {
-                transform: translateX(-5px);
-            }
-        }
+}
 
         /* =====================================================
            MOBILE
@@ -690,328 +964,618 @@
 
         @media (max-width: 600px) {
 
+            body {
+                overflow-y: auto;
+            }
+
+            .hud {
+                top: 14px;
+                left: 15px;
+                right: 15px;
+            }
+
             .container {
+
                 width: 94%;
 
-                padding: 25px;
+                padding:
+                    35px 22px;
+            }
+
+            h1 {
+
+                font-size: 45px;
+
+                letter-spacing: 9px;
+
+                text-indent: 9px;
+            }
+
+            .terminal {
+
+                margin-top: 32px;
+
+                min-height: 205px;
+
+                font-size: 12px;
             }
 
             .input-area {
+
                 flex-direction: column;
             }
 
             button {
+
                 width: 100%;
             }
 
-            h1 {
-                letter-spacing: 8px;
-            }
+            .recovery {
 
-            .terminal {
-                font-size: 13px;
-            }
+                bottom: 20px;
 
-            .coordinates {
-                display: none;
-            }
-
-            .number {
-                top: 12px;
-                right: 15px;
+                font-size: 20px;
             }
         }
+
     </style>
+
 </head>
+
 
 <body>
 
-<div class="noise"></div>
+    <div class="hud">
 
-<div class="corruption-overlay" id="corruptionOverlay"></div>
+        <div>
+            MEMORY // <span class="danger">UNKNOWN</span>
+        </div>
 
-<div class="scan" id="scan"></div>
-
-<div class="recovery" id="recovery">
-    [ RECOVERY_PROTOCOL // ACTIVE ]
-</div>
-
-<div class="number">
-    19 / 09 / 2026
-</div>
-
-<div class="coordinates">
-    41°57′ N, 12°30′ E
-</div>
-
-<main class="container" id="container">
-
-    <div class="warning" id="warning">
-        // ACESSO NÃO AUTORIZADO
-    </div>
-
-    <h1 id="title">???</h1>
-
-    <div class="subtitle" id="subtitle">
-        VOCÊ NÃO DEVERIA TER ENCONTRADO ISTO.
-    </div>
-
-    <div class="terminal" id="terminal">
-
-        <div id="text"></div>
-
-        <span class="cursor"></span>
+        <div>
+            0x00<span class="danger">?</span>
+        </div>
 
     </div>
 
-    <div class="question">
-        [ DIGITE A SENHA ]
+
+    <div class="corruption" id="corruption"></div>
+
+    <div class="scan" id="scan"></div>
+
+
+    <div class="recovery" id="recovery">
+        [ RECOVERY_PROTOCOL ]
     </div>
 
-    <form method="POST" id="form">
 
-        {% csrf_token %}
+    <main class="container" id="container">
 
-        <div class="input-area">
 
-            {{ form.senha }}
+        <div class="system" id="system">
+            SYSTEM // <span>UNIDENTIFIED</span>
+        </div>
 
-            <button type="submit" id="submitButton">
-                ENVIAR
-            </button>
+
+        <h1 id="title">
+            ???
+        </h1>
+
+
+        <div class="subtitle" id="subtitle">
+            VOCÊ NÃO DEVERIA TER ENCONTRADO ISTO.
+        </div>
+
+
+        <div class="terminal">
+
+            <div id="text"></div>
+
+            <span class="cursor"></span>
 
         </div>
 
-        {% if form.senha.errors %}
-            <div class="error">
-                {{ form.senha.errors.0 }}
+
+        <div class="question" id="question">
+            [ DIGITE A SENHA PARA ENTRAR NO SISTEMA ]:
+        </div>
+
+
+        <form method="POST" id="form">
+
+            {% csrf_token %}
+
+            <div class="input-area">
+
+                {{ form.senha }}
+
+                <button
+                    type="submit"
+                    id="submitButton"
+                >
+                    CONTINUAR
+                </button>
+
             </div>
-        {% endif %}
 
-    </form>
 
-    {% if resultado == "success" %}
+            {% if form.senha.errors %}
 
-        <div class="result success">
-            ✓ ...você encontrou a primeira porta.
-        </div>
+                <div class="result error">
 
-    {% elif resultado == "error" %}
+                    {{ form.senha.errors.0 }}
 
-        <div class="result error">
-            ✕ ERRO: SENHA INCORRETA.
-        </div>
+                </div>
 
-    {% endif %}
+            {% endif %}
 
-</main>
 
-<script>
+            {% if resultado == "error" %}
 
-    /* =====================================================
-       TEXTO
-    ===================================================== */
+                <div class="result error">
+                    // ACCESS_DENIED
+                </div>
 
-    const message = [
-        "CONEXÃO ESTABELECIDA...",
-        "",
-        "Há coisas que foram feitas para permanecer escondidas.",
-        "Há portas que não deveriam ser abertas.",
-        "",
-        "Mas você chegou até aqui.",
-        "",
-        "Então continue por sua conta e risco..."
-    ];
+            {% endif %}
 
-    const textElement = document.getElementById("text");
+        </form>
 
-    let line = 0;
-    let char = 0;
+    </main>
 
-    function typeText() {
 
-        if (line >= message.length) {
+    <script>
+
+        const textElement =
+            document.getElementById("text");
+
+        const form =
+            document.getElementById("form");
+
+        const button =
+            document.getElementById("submitButton");
+
+        const title =
+            document.getElementById("title");
+
+        const subtitle =
+            document.getElementById("subtitle");
+
+        const system =
+            document.getElementById("system");
+
+        const question =
+            document.getElementById("question");
+
+        const corruption =
+            document.getElementById("corruption");
+
+        const scan =
+            document.getElementById("scan");
+
+        const recovery =
+            document.getElementById("recovery");
+
+
+        function wait(ms) {
+
+            return new Promise(resolve => {
+                setTimeout(resolve, ms);
+            });
+
+        }
+
+
+        /* =====================================================
+           TEXTO TERMINAL
+        ===================================================== */
+
+        const message = [
+
+            "CONEXÃO ESTABELECIDA...",
+
+            "",
+
+            "Há coisas que foram feitas para permanecer escondidas.",
+
+            "",
+
+            "Há portas que não deveriam ser abertas.",
+
+            "",
+
+            "Mas você chegou até aqui.",
+
+            "",
+
+            "Então continue por sua conta e risco..."
+
+        ];
+
+
+        let line = 0;
+        let char = 0;
+
+
+        function typeText() {
+
+            if (line >= message.length) {
+                return;
+            }
+
+
+            if (char < message[line].length) {
+
+                textElement.innerHTML +=
+                    message[line][char];
+
+                char++;
+
+                setTimeout(
+                    typeText,
+                    24
+                );
+
+            }
+
+            else {
+
+                textElement.innerHTML +=
+                    "<br>";
+
+                line++;
+
+                char = 0;
+
+                setTimeout(
+                    typeText,
+                    280
+                );
+
+            }
+
+        }
+
+
+        typeText();
+
+
+        /* =====================================================
+           GLITCH
+        ===================================================== */
+
+        function glitch(duration = 160) {
+
+            corruption.classList.add("active");
+
+            scan.classList.add("active");
+
+
+            setTimeout(() => {
+
+                corruption.classList.remove("active");
+
+            }, duration);
+
+
+            setTimeout(() => {
+
+                scan.classList.remove("active");
+
+            }, 500);
+
+        }
+
+
+        function smallGlitch() {
+
+            document.body.classList.add("dying");
+
+
+            setTimeout(() => {
+
+                document.body.classList.remove("dying");
+
+            }, 80 + Math.random() * 130);
+
+        }
+
+
+        /* =====================================================
+           SUBMISSÃO
+        ===================================================== */
+
+form.addEventListener(
+    "submit",
+    async function(event) {
+
+        event.preventDefault();
+
+        if (button.disabled) {
             return;
         }
 
-        if (char < message[line].length) {
+        button.disabled = true;
 
-            textElement.innerHTML += message[line][char];
+        const formData = new FormData(form);
 
-            char++;
+        try {
 
-            setTimeout(typeText, 28);
+            const response = await fetch(
+                window.location.href,
+                {
+                    method: "POST",
+                    body: formData,
+                    headers: {
+                        "X-Requested-With": "XMLHttpRequest"
+                    }
+                }
+            );
 
-        } else {
 
-            textElement.innerHTML += "<br>";
+            /*
+                SENHA CORRETA
 
-            line++;
+                O Django redireciona.
+                Então iniciamos a sequência
+                de corrupção antes de seguir.
+            */
 
-            char = 0;
+            if (response.redirected) {
 
-            setTimeout(typeText, 350);
+                await beginCorruption();
+
+                window.location.href =
+                    response.url;
+
+                return;
+            }
+
+
+            /*
+                SENHA ERRADA
+
+                O Django devolveu a mesma página.
+                Não executamos a sequência final.
+
+                Apenas ativamos ACCESS DENIED.
+            */
+
+            document.body.classList.add(
+                "access-denied"
+            );
+
+
+            /*
+                Se já existir uma mensagem
+                antiga, removemos.
+            */
+
+            const oldError =
+                form.querySelector(".result.error");
+
+            if (oldError) {
+                oldError.remove();
+            }
+
+
+            /*
+                Criamos a mensagem
+                visualmente.
+            */
+
+            const errorMessage =
+                document.createElement("div");
+
+            errorMessage.className =
+                "result error";
+
+            errorMessage.innerText =
+                "// ACCESS_DENIED";
+
+
+            form.appendChild(
+                errorMessage
+            );
+            setTimeout(() => {
+
+    errorMessage.remove();
+
+    document.body.classList.remove(
+        "access-denied"
+    );
+
+    button.innerText =
+        "CONTINUAR";
+
+}, 4000);
+
+
+            button.disabled = false;
+
+            button.innerText =
+                "TENTAR NOVAMENTE";
+
+
+            /*
+                Pequeno glitch visual
+                ao negar acesso.
+            */
+
+            glitch(180);
+
         }
+
+        catch (error) {
+
+            button.disabled = false;
+
+            form.submit();
+
+        }
+
     }
+);
 
-    typeText();
+        /* =====================================================
+           SEQUÊNCIA FINAL
+        ===================================================== */
 
+        async function beginCorruption() {
 
-    /* =====================================================
-       CORRUPÇÃO ALEATÓRIA
-    ===================================================== */
+            button.disabled = true;
 
-    const overlay = document.getElementById("corruptionOverlay");
-    const scan = document.getElementById("scan");
-
-    function glitch() {
-
-        overlay.classList.add("active");
-
-        setTimeout(() => {
-            overlay.classList.remove("active");
-        }, 180);
-
-        scan.classList.add("active");
-
-        setTimeout(() => {
-            scan.classList.remove("active");
-        }, 500);
-    }
+            const originalTitle =
+                title.innerText;
 
 
-    function smallGlitch() {
-
-        document.body.classList.add("corrupting");
-
-        setTimeout(() => {
-            document.body.classList.remove("corrupting");
-        }, 100 + Math.random() * 150);
-    }
-
-
-    /* =====================================================
-       SUBMISSÃO
-    ===================================================== */
-
-    const form = document.getElementById("form");
-
-    form.addEventListener("submit", function(e) {
-
-        e.preventDefault();
-
-        beginCorruption();
-
-    });
-
-
-    /* =====================================================
-       GRANDE CORRUPÇÃO
-    ===================================================== */
-
-    async function beginCorruption() {
-
-        const recovery = document.getElementById("recovery");
-        const title = document.getElementById("title");
-        const subtitle = document.getElementById("subtitle");
-        const warning = document.getElementById("warning");
-
-        /* trava botão */
-
-        document.getElementById("submitButton").disabled = true;
-
-        /* primeira falha */
-
-        glitch();
-
-        await wait(300);
-
-        smallGlitch();
-
-        await wait(350);
-
-        /* título começa a falhar */
-
-        title.innerText = "M-MEMENTO";
-
-        glitch();
-
-        await wait(250);
-
-        title.innerText = "M3M3NT0";
-
-        smallGlitch();
-
-        await wait(250);
-
-        title.innerText = "MEMENTO_";
-
-        glitch();
-
-        await wait(300);
-
-        /* interface começa a desaparecer */
-
-        subtitle.innerText = "VOCÊ NÃO DEVERIA TER VISTO ISTO.";
-
-        warning.innerText = "// ERRO DE INTEGRIDADE";
-
-        glitch();
-
-        await wait(400);
-
-        /* recuperação */
-
-        recovery.classList.add("show");
-
-        await wait(500);
-
-        recovery.innerText = "[ RECUPERANDO ARQUIVO... ]";
-
-        glitch();
-
-        await wait(700);
-
-        recovery.innerText = "[ ARQUIVO // 002 ]";
-
-        smallGlitch();
-
-        await wait(500);
-
-        recovery.innerText = "[ DATA CORRUPTED ]";
-
-        glitch();
-
-        await wait(500);
-
-        /* corrupção final */
-
-        for (let i = 0; i < 7; i++) {
-
-            smallGlitch();
+            question.innerText =
+                "[ VERIFICANDO CREDENCIAIS... ]";
 
             glitch();
 
-            await wait(90 + Math.random() * 100);
+            await wait(350);
+
+
+            system.innerHTML =
+                "SYSTEM // <span>VERIFYING</span>";
+
+            smallGlitch();
+
+            await wait(450);
+
+
+            title.innerText =
+                "M-MEMENTO";
+
+            glitch();
+
+            await wait(280);
+
+
+            title.innerText =
+                "M3M3NT0";
+
+            smallGlitch();
+
+            await wait(300);
+
+
+            title.innerText =
+                "MEMENTO_002";
+
+            glitch();
+
+            await wait(400);
+
+
+            subtitle.innerText =
+                "ARQUIVO ENCONTRADO.";
+
+
+            system.innerHTML =
+                "SYSTEM // <span>MEMORY FOUND</span>";
+
+
+            question.innerText =
+                "[ IDENTIDADE RECONHECIDA ]";
+
+
+            glitch();
+
+            await wait(550);
+
+
+            recovery.classList.add("active");
+
+            recovery.innerText =
+                "[ RECOVERY_PROTOCOL // ACTIVE ]";
+
+
+            await wait(500);
+
+
+            recovery.innerText =
+                "[ LOCATING MEMORY... ]";
+
+            glitch();
+
+            await wait(550);
+
+
+            recovery.innerText =
+                "[ MEMORY // 002 ]";
+
+            smallGlitch();
+
+            await wait(500);
+
+
+            recovery.innerText =
+                "[ CORRUPTION DETECTED ]";
+
+            glitch(220);
+
+            await wait(500);
+
+
+            /* =================================================
+               CORRUPÇÃO FINAL
+            ================================================= */
+
+            for (
+                let i = 0;
+                i < 8;
+                i++
+            ) {
+
+                smallGlitch();
+
+                glitch(
+                    100 + Math.random() * 100
+                );
+
+                await wait(
+                    90 + Math.random() * 100
+                );
+
+            }
+
+
+            await wait(250);
+
+
+            recovery.innerText =
+                "[ MEMORY // 002 ]";
+
+
+            document.body.classList.add(
+                "fadeout"
+            );
+
+
+            await wait(650);
+
+
+            document.body.classList.add(
+                "blackout"
+            );
+
+
+            await wait(500);
+
+
+            /*
+                IMPORTANTE:
+
+                O POST real continua acontecendo.
+                Isso preserva o funcionamento do Django.
+            */
+
+            form.submit();
 
         }
 
-        await wait(250);
-
-        /* envia */
-
-        form.submit();
-    }
-
-
-    function wait(ms) {
-
-        return new Promise(resolve => {
-            setTimeout(resolve, ms);
-        });
-    }
-
-</script>
+    </script>
 
 </body>
+
 </html>
